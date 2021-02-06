@@ -1,5 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
+// ==========================================================================
+//   NORMALIZE - Normalize.css makes browsers render all elements
+//              more consistently and in line with modern standards.
+//              It precisely targets only the styles that need normalizing.
+// ==========================================================================
+@import '../node_modules/normalize-scss/sass/normalize';
+
 // --------------------------------------------------------
 //   HELPERS - import all variables, functions and mixins
 // --------------------------------------------------------
