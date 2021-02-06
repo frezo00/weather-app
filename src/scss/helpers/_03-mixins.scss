@@ -1,0 +1,144 @@
+// ==================================
+//   MIXINS - Various helper mixins
+// ==================================
+
+// ------------------------------------------------
+//   BORDER - Mixin for setting 'border' property
+// ------------------------------------------------
+@mixin border($width: $border-width, $style: $border-style, $color: border, $position: false) {
+  @if $position and list-contains(top right bottom left, $position) {
+    border-#{$position}: $width $style color($color);
+  } @else {
+    border: $width $style color($color);
+  }
+}
+
+// --------------------------------------------------------------
+//   BORDER-RADIUS - Mixin for setting 'border-radius' property
+// --------------------------------------------------------------
+@mixin border-radius($radius: normal) {
+  border-radius: border-radius($radius);
+}
+
+// -----------------------------------------------
+//   FLEX - Mixin for setting Flexbox properties
+// -----------------------------------------------
+@mixin flex($direction: false, $justify: false, $align: false, $gsb: false) {
+  display: flex;
+
+  @if $direction {
+    flex-direction: $direction;
+  }
+
+  @if $justify {
+    justify-content: $justify;
+  }
+
+  @if $align {
+    align-items: $align;
+  }
+
+  @if $gsb {
+    flex: $gsb;
+  }
+}
+
+// --------------------------------------------------------------------------------------------------------------
+//   FONT - Mixin for setting 'font-size', 'font-weight', 'color', 'line-height' and 'font-family' for the text
+// --------------------------------------------------------------------------------------------------------------
+@mixin font($size: inherit, $color: inherit, $weight: inherit, $line-height: normal, $family: false) {
+  font-size: font-size($size);
+  color: color($color);
+  font-weight: font-weight($weight);
+  line-height: line-height($line-height);
+
+  @if $family {
+    font-family: font-family($family);
+  }
+}
+
+// ----------------------------------------------------------------------
+//   MEDIA - Mixin that enables using styling for a specific breakpoint
+//   How to use:
+//
+//      selector {
+//        @include media(xs, max) {
+//          // put here stylings for the specified media breakpoint
+//        }
+//      }
+//
+// ----------------------------------------------------------------------
+@mixin media($breakpoint-name, $type: min) {
+  $breakpoint-pixels: map-contains($breakpoints, $breakpoint-name);
+
+  @if $breakpoint-pixels {
+    @if $type == max {
+      $breakpoint-pixels: $breakpoint-pixels - 1px;
+    }
+
+    @media only screen and (#{$type}-width: $breakpoint-pixels) {
+      @content;
+    }
+  }
+}
+
+// -------------------------------------------------------------
+//   PLACEHOLDER - Mixin that enables styling the placeholders
+//   How to use:
+//
+//      input {
+//        @include placeholder {
+//          // put here stylings for the placeholder
+//        }
+//      }
+//
+// -------------------------------------------------------------
+@mixin placeholder {
+  &::placeholder {
+    @content;
+  }
+  &::-moz-placeholder {
+    @content;
+  }
+  &:-ms-input-placeholder {
+    @content;
+  }
+  &::-webkit-input-placeholder {
+    @content;
+  }
+}
+
+// ----------------------------------------------------------------------------------------------
+//   PSEUDO - Mixin that sets common stylings for pseudo-elements like '::before' and '::after'
+// ----------------------------------------------------------------------------------------------
+@mixin pseudo($content: '', $position: absolute, $display: block) {
+  content: $content;
+  position: $position;
+  display: $display;
+}
+
+// ------------------------------------------------------------
+//   TRANSITION - Mixin for setting the 'transition' property
+// ------------------------------------------------------------
+@mixin transition($args...) {
+  // Declare empty list and fill it in the loop
+  $props: ();
+  @each $prop in $args {
+    @if type-of($prop) == string {
+      $props: append($props, $prop $transition-duration $transition-timing, 'comma');
+    } @else {
+      $props: append($props, $prop, 'comma');
+    }
+  }
+  transition: $props;
+}
+
+// ----------------------------------------------------------
+//   TRUNCATE - Mixin that sets stylings for truncated text
+// ----------------------------------------------------------
+@mixin truncate($boundary: 100%) {
+  max-width: $boundary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
