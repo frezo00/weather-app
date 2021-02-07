@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 
 @Component({
   selector: 'zivv-dropdown',
@@ -6,10 +6,31 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dropdown.component.scss']
 })
 export class DropdownComponent implements OnInit {
+  @Input() options!: any[] | null;
+  @Input() optionTemplate: TemplateRef<HTMLElement> | undefined;
+  @Input() set labelKey(_: string) {
+    this.hasKey = this.options?.every(option => typeof option === 'object') || false;
+    this.selectedOption = this.hasKey ? { [this.labelKey]: '--' } : '--';
+  }
+  @Output() optionSelect = new EventEmitter<any>();
 
-  constructor() { }
+  selectedOption: any | undefined;
+  isOpen = false;
+  hasKey = false;
 
-  ngOnInit(): void {
+  constructor() {}
+
+  ngOnInit(): void {}
+
+  toggleOpen(value?: boolean): void {
+    this.isOpen = value || !this.isOpen;
   }
 
+  onSelect(selected: any): void {
+    this.selectedOption = selected;
+    this.toggleOpen(false);
+    this.optionSelect.emit(this.selectedOption);
+  }
+
+  trackByOption = (i: number, _: any): number => i;
 }
