@@ -101,7 +101,7 @@
     }
   }
 
-  margin: $spacing-4x $spacing-1x;
+  margin: $spacing-4x 0;
 }
 
 .weather__name {
@@ -113,13 +113,12 @@
 }
 
 .weather__value {
+  @include flex();
   @include font(large, secondary, semibold, small, semibold);
   position: relative;
   margin: 0;
 
   & > i {
-    position: absolute;
-    top: 0;
     font-size: font-size(medium);
     line-height: line-height(large);
     font-style: normal;
@@ -132,9 +131,7 @@
   margin-top: $spacing-6x;
 
   & > i {
-    right: -24px;
-    top: 8px;
     font-size: font-size(large);
-    line-height: line-height(small);
+    line-height: line-height(double);
   }
 }

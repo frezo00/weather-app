@@ -82,15 +82,6 @@ $gradient-colors: (
 // ---------------
 //   FONT FAMILY
 // ---------------
-@font-face {
-  font-family: 'poppins-regular';
-  src: url('../../assets/fonts/Poppins-Regular.ttf') format('truetype');
-}
-@font-face {
-  font-family: 'poppins-semi-bold';
-  src: url('../../assets/fonts/Poppins-SemiBold.ttf') format('truetype');
-}
-
 $font-family-regular: 'poppins-regular', sans-serif;
 $font-family-semibold: 'poppins-semi-bold', sans-serif;
 
