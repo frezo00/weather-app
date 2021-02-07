@@ -42,7 +42,7 @@
 }
 
 .search__dropdown {
-  max-width: 100px;
+  width: 100px;
   margin-right: $spacing-2x;
 }
 
@@ -134,4 +134,20 @@
     font-size: font-size(large);
     line-height: line-height(double);
   }
+}
+
+// Country template
+.country {
+  @include flex(row, $align: center);
+  width: 100%;
+  padding: $spacing-1x $spacing-3x;
+}
+.country__flag {
+  max-width: 18px;
+  width: 100%;
+  margin-right: $spacing-3x;
+}
+.country__code {
+  @include font(medium, primary, semibold, medium, semibold);
+  @include truncate();
 }

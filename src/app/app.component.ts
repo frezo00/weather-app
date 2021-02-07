@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { IWeather } from './models';
+import { ICity, ICountry, IWeather } from './models';
+import { CitiesService } from './services/cities.service';
 import { WeatherService } from './services/weather.service';
 
 @Component({
@@ -12,10 +13,18 @@ import { WeatherService } from './services/weather.service';
 export class AppComponent implements OnInit {
   weatherPerDay$!: Observable<IWeather[]>;
   averageTemp$!: Observable<number>;
+  cities$!: Observable<ICity[]>;
+  countries$!: Observable<ICountry[] | null>;
 
-  constructor(private _weatherService: WeatherService) {}
+  constructor(private _weatherService: WeatherService, private _citiesService: CitiesService) {}
 
   ngOnInit(): void {
+    this.cities$ = this._citiesService.getCities$();
+    this.cities$.subscribe(
+      cities => console.log('cities', cities),
+      err => console.error('err', err)
+    );
+    this.countries$ = this._citiesService.coutries$;
     this.weatherPerDay$ = this._weatherService.getWeatherPerDay$();
     this.averageTemp$ = this._weatherService.averageTemperature$;
   }
