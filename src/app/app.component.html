@@ -9,22 +9,22 @@
   </div>
 </section>
 
-<main>
+<main *ngIf="weatherPerDay$ | async as weatherPerDay">
   <section class="result">
     <article class="weather">
-      <h1 class="weather__name">May 4 - 10 2020</h1>
+      <h1 class="weather__name">{{ weatherPerDay | fn: mapToDateRange | daterange }}</h1>
       <p class="weather__value weather__value--large">
-        <span>10</span>
+        <span>{{ averageTemp$ | async | number: '1.0-0' }}</span>
         <i class="weather__unit">&#8451;</i>
       </p>
     </article>
   </section>
 
   <section class="days">
-    <article *ngFor="let day of days; let i = index" class="weather" id="weather{{ i + 1 }}">
-      <h3 class="weather__name">{{ day.name }}</h3>
+    <article *ngFor="let weather of weatherPerDay; let i = index" class="weather" id="weather{{ i + 1 }}">
+      <h3 class="weather__name">{{ weather.date | date: 'EEEE' }}</h3>
       <p class="weather__value">
-        <span>{{ day.value }}</span>
+        <span>{{ weather.temperature | number: '1.0-0' }}</span>
         <i class="weather__unit">&#8451;</i>
       </p>
     </article>
