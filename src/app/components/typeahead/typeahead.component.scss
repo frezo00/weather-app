@@ -1,0 +1,35 @@
+@import '../../../scss/helpers';
+
+.typeahead {
+  @include border-radius();
+  @include border();
+  @include flex($align: center, $gsb: 1 0 auto);
+  @include transition(border-color);
+  padding: $spacing-2x $spacing-4x;
+  height: 48px;
+
+  &:hover,
+  &:focus-within {
+    border-color: color(focus);
+  }
+}
+
+.typeahead__icon {
+  margin-left: $spacing-3x;
+  opacity: 0.5;
+}
+
+.typeahead__input {
+  @include font(inherit, primary, regular, medium, regular);
+  @include placeholder() {
+    color: color(placeholder);
+  }
+  width: 100%;
+  height: 100%;
+  border: none;
+
+  &:focus,
+  &:active {
+    outline: none;
+  }
+}

@@ -38,6 +38,13 @@
   @return map-contains($colors, $color);
 }
 
+// --------------------------------------------------------------------------------------
+//   GRADIENT COLOR - Returns 'hexa' value for a number from '$gradient-colors' map
+// --------------------------------------------------------------------------------------
+@function gradient-color($number) {
+  @return map-contains($gradient-colors, $number);
+}
+
 // ------------------------------------------------------------------------------
 //   FONT-FAMILY - Returns a value for a $family name from '$font-families' map
 // ------------------------------------------------------------------------------

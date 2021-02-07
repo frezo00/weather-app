@@ -11,3 +11,47 @@
 //   HELPERS - import all variables, functions and mixins
 // --------------------------------------------------------
 @import './scss/helpers';
+
+// -------------------
+//   GLOBAL STYLINGS
+// -------------------
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+body {
+  @include font(medium, primary, regular, normal, regular);
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(0deg, rgba(color(secondary), 0.8), rgba(color(secondary), 0.8)),
+    linear-gradient(
+      119.25deg,
+      gradient-color(1) -11.47%,
+      gradient-color(2) 3.95%,
+      gradient-color(3) 19.37%,
+      gradient-color(4) 34.78%,
+      gradient-color(5) 50.19%,
+      gradient-color(6) 65.61%,
+      gradient-color(7) 81.02%,
+      gradient-color(8) 96.44%,
+      gradient-color(9) 111.85%
+    );
+
+  // for Google Fonts
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+input[type='search']::-webkit-search-decoration,
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-results-button,
+input[type='search']::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+}
+
+svg-icon {
+  min-width: 1em;
+}
