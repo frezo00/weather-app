@@ -11,6 +11,7 @@
 // ------------------------------------------------------------------------------
 $_deep-cove: #08153e;
 $_melrose: #b5c7ff;
+$_alabaster: #f8f8f8;
 $_white: #ffffff;
 $_black: #000000;
 
@@ -31,6 +32,7 @@ $color-primary: $_deep-cove;
 $color-secondary: $_white;
 $color-border: rgba($color-primary, 0.05);
 $color-placeholder: rgba($color-primary, 0.5);
+$color-background: $_alabaster;
 $color-focus: $_melrose;
 $color-black: $_black;
 
@@ -39,6 +41,7 @@ $colors: (
   secondary: $color-secondary,
   border: $color-border,
   placeholder: $color-placeholder,
+  background: $color-background,
   focus: $color-focus,
   black: $color-black,
   transparent: transparent,
@@ -89,11 +92,11 @@ $gradient-colors: (
 }
 
 $font-family-regular: 'poppins-regular', sans-serif;
-$font-family-semi-bold: 'poppins-semi-bold', sans-serif;
+$font-family-semibold: 'poppins-semi-bold', sans-serif;
 
 $font-families: (
   regular: $font-family-regular,
-  semi-bold: $font-family-semi-bold
+  semibold: $font-family-semibold
 );
 
 $font-family-base: $font-family-regular !default;
@@ -138,12 +141,14 @@ $font-weight-base: $font-weight-regular !default;
 $line-height-min: 1;
 $line-height-small: 1.333;
 $line-height-medium: 1.5;
+$line-height-large: 1.71;
 $line-height-double: 2;
 
 $line-heights: (
   min: $line-height-min,
   small: $line-height-small,
   medium: $line-height-medium,
+  large: $line-height-large,
   double: $line-height-double,
   normal: normal
 );
