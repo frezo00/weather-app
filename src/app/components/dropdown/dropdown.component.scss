@@ -1,0 +1,25 @@
+@import '../../../scss/helpers';
+
+.dropdown {
+  @include border-radius();
+  @include border();
+  @include flex($align: center, $gsb: 1 0 auto);
+  @include transition(border-color);
+  padding: $spacing-2x $spacing-4x;
+  height: 48px;
+  min-height: 48px;
+
+  &:hover {
+    border-color: color(focus);
+    cursor: pointer;
+  }
+}
+
+.dropdown__icon {
+  margin-left: $spacing-2x;
+  opacity: 0.5;
+}
+
+.dropdown__result {
+  @include truncate();
+}

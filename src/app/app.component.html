@@ -1,1 +1,28 @@
-<svg-icon key="search" size="lg"></svg-icon>
+<section class="search">
+  <div class="search__weather-image">
+    <svg-icon key="sun" size="lg"></svg-icon>
+    <svg-icon key="cloud" fontSize="40px"></svg-icon>
+  </div>
+  <zivv-dropdown class="search__dropdown"></zivv-dropdown>
+  <zivv-typeahead class="search__typeahead"></zivv-typeahead>
+</section>
+
+<section class="result">
+  <article class="weather">
+    <h1 class="weather__name">May 4 - 10 2020</h1>
+    <p class="weather__value weather__value--large">
+      <span>10</span>
+      <i class="weather__unit">&#8451;</i>
+    </p>
+  </article>
+</section>
+
+<section class="days">
+  <article *ngFor="let day of days" class="weather">
+    <h3 class="weather__name">{{ day.name }}</h3>
+    <p class="weather__value">
+      <span>{{ day.value }}</span>
+      <i class="weather__unit">&#8451;</i>
+    </p>
+  </article>
+</section>

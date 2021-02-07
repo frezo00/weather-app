@@ -1,0 +1,84 @@
+@import '../scss/helpers';
+
+:host {
+  @include flex(column, center, center, 1 0 auto);
+  height: 100%;
+}
+
+.search {
+  @include flex($align: center);
+  @include border-radius(large);
+  height: 92px;
+  width: 632px;
+  padding: $spacing-5x;
+  background: linear-gradient(0deg, rgba(color(secondary), 0.9), rgba(color(secondary), 0.9)), color(background);
+  box-shadow: $box-shadow-base;
+}
+
+.search__weather-image {
+  position: relative;
+  margin: 0 $spacing-2x;
+
+  & > svg-icon[key='sun'] {
+    position: absolute;
+    left: -3px;
+    top: 3px;
+  }
+}
+
+.search__dropdown {
+  max-width: 100px;
+  margin: 0 $spacing-2x;
+}
+
+.search__typeahead {
+  flex: 1 0 auto;
+}
+
+.result {
+  margin: $spacing-8x 0;
+}
+
+.days {
+  @include flex();
+}
+
+.weather {
+  @include flex(column, $align: center);
+  margin: $spacing-4x;
+}
+
+.weather__name {
+  @include font(small, primary, semibold, double, semibold);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.6;
+}
+
+.weather__value {
+  @include font(large, secondary, semibold, small, semibold);
+  position: relative;
+  margin: 0;
+
+  & > i {
+    position: absolute;
+    top: 0;
+    font-size: font-size(medium);
+    line-height: line-height(large);
+    font-style: normal;
+  }
+}
+
+.weather__value--large {
+  font-size: font-size(huge);
+  line-height: line-height(min);
+  margin-top: $spacing-6x;
+
+  & > i {
+    right: -24px;
+    top: 8px;
+    font-size: font-size(large);
+    line-height: line-height(small);
+  }
+}
