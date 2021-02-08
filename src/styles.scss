@@ -12,6 +12,18 @@
 // --------------------------------------------------------
 @import './scss/helpers';
 
+// --------------------------------------------------------------------------------------------------------
+//   FONT-FACE - Add all font-faces once, to use them everywhere (check $font-family variables for names)
+// --------------------------------------------------------------------------------------------------------
+@font-face {
+  font-family: 'poppins-regular';
+  src: url('../src/assets/fonts/Poppins-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'poppins-semi-bold';
+  src: url('../src/assets/fonts/Poppins-SemiBold.ttf') format('truetype');
+}
+
 // -------------------
 //   GLOBAL STYLINGS
 // -------------------
