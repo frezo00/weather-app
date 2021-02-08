@@ -1,4 +1,21 @@
-<article class="dropdown">
-  <div class="dropdown__result">Result</div>
+<article (click)="toggleOpen(!isOpen)" (zivvOutsideClick)="toggleOpen(false)" class="dropdown">
+  <div class="option option--selected">
+    <ng-container
+      *ngTemplateOutlet="optionTemplate ? optionTemplate : defaultTemplate; context: { $implicit: selectedOption }"
+    ></ng-container>
+  </div>
+
+  <section *ngIf="isOpen" class="options">
+    <div *ngFor="let option of options; trackBy: trackByOption" (click)="onSelect(option)" class="option">
+      <ng-container
+        *ngTemplateOutlet="optionTemplate ? optionTemplate : defaultTemplate; context: { $implicit: option }"
+      ></ng-container>
+    </div>
+  </section>
+
   <svg-icon key="chevron" size="xs" class="dropdown__icon"></svg-icon>
 </article>
+
+<ng-template #defaultTemplate let-context>
+  <span class="option__label">{{ hasKey ? context[labelKey] : context }}</span>
+</ng-template>
