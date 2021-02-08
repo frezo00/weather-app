@@ -22,8 +22,8 @@ export class DropdownComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  toggleOpen(value?: boolean): void {
-    this.isOpen = value || !this.isOpen;
+  toggleOpen(value: boolean): void {
+    this.isOpen = value;
   }
 
   onSelect(selected: any): void {

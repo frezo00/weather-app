@@ -1,17 +1,18 @@
 @import '../../../scss/helpers';
 
 .dropdown {
-  @include border-radius();
-  @include border();
   @include flex($align: center, $gsb: 1 0 auto);
-  @include transition(border-color);
+
   position: relative;
   height: 48px;
   min-height: 48px;
 
   &:hover {
-    border-color: color(focus);
     cursor: pointer;
+
+    .option--selected {
+      border-color: color(focus);
+    }
   }
 }
 
@@ -50,16 +51,22 @@
   @include transition(background-color);
   width: 100%;
 
-  &:not(:only-of-type):hover {
-    background-color: color(background);
-  }
+  &:not(:only-of-type) {
+    &:hover {
+      background-color: color(background);
+    }
 
-  &:last-of-type {
-    border-bottom: none;
+    &:last-of-type {
+      border-bottom: none;
+    }
   }
 }
 
 .option--selected {
+  @include border-radius();
+  @include border();
+  @include transition(border-color);
+  height: 100%;
   padding-right: $spacing-4x;
 
   & > .option__label {
