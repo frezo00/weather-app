@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -15,12 +15,16 @@ export class WeatherService {
 
   constructor(private _http: HttpClient) {}
 
-  getWeatherPerDay$(city?: string): Observable<IWeather[]> {
-    return this._http.get<IForecast>(this._baseUrl).pipe(
-      map(forecast => forecast.data),
-      tap(days => this.averageTemperature$.next(this._calculateAverage(days.map(day => day.temp)))),
-      map(forecastDays => this._getWeatherData(forecastDays.filter((_, i) => i < 7)))
-    );
+  getWeatherPerDay$(city: string): Observable<IWeather[]> {
+    const params = new HttpParams().set('city', city);
+
+    return this._http
+      .get<IForecast>(this._baseUrl, { params })
+      .pipe(
+        map(forecast => forecast.data),
+        tap(days => this.averageTemperature$.next(this._calculateAverage(days.map(day => day.temp)))),
+        map(forecastDays => this._getWeatherData(forecastDays.filter((_, i) => i < 7)))
+      );
   }
 
   private _getWeatherData(forecastDays: IForecastDay[]): IWeather[] {

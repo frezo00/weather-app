@@ -1,0 +1,160 @@
+@import '../../../scss/helpers';
+
+:host {
+  @include flex(column, center, center, 1 0 auto);
+  height: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: $spacing-5x;
+}
+
+.search {
+  @include flex(row, center, center);
+  @include border-radius(large);
+  @include media(sm, max) {
+    flex-direction: column;
+  }
+  width: 100%;
+  padding: $spacing-5x;
+  background: linear-gradient(0deg, rgba(color(secondary), 0.9), rgba(color(secondary), 0.9)), color(background);
+  box-shadow: $box-shadow-base;
+}
+
+.search__weather-image {
+  @include media(sm, max) {
+    margin-bottom: $spacing-2x;
+    margin-right: $spacing-2x;
+  }
+  position: relative;
+  margin-right: $spacing-4x;
+  margin-left: $spacing-2x;
+
+  & > svg-icon[key='sun'] {
+    position: absolute;
+    left: -3px;
+    top: 3px;
+  }
+}
+
+.search__weather-data {
+  @include flex();
+  width: 100%;
+}
+
+.search__dropdown {
+  width: 100px;
+  margin-right: $spacing-2x;
+}
+
+.search__typeahead {
+  flex: 1 0 0;
+}
+
+.result {
+  margin: $spacing-8x 0;
+}
+
+.days {
+  @include flex($justify: space-between);
+  @include media(sm, max) {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+  }
+  @include media(xs, max) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  width: 100%;
+}
+
+.weather {
+  @include flex(column, $align: center);
+  // NOTE: Don't go for the 'mobile-first' approach if you don't have the mobile design
+  @include media(sm, max) {
+    $days-in-week: 7;
+
+    @for $i from 1 through $days-in-week {
+      $end: $i * 3 + 1;
+      $start: $end - 3;
+
+      @if $i > 4 {
+        $end: $i * 4 - 15;
+        $start: $end - 4;
+      }
+
+      &#weather#{$i} {
+        grid-column: #{$start} / #{$end};
+      }
+    }
+  }
+  @include media(xs, max) {
+    &:nth-of-type(odd) {
+      grid-column: 1 / 2 !important;
+    }
+
+    &:nth-of-type(even) {
+      grid-column: 2 / 3 !important;
+    }
+
+    &:not(:only-child):last-of-type {
+      grid-column: 1 / 3 !important;
+      padding-bottom: 40px;
+    }
+  }
+
+  margin: $spacing-4x 0;
+}
+
+.weather__name {
+  @include font(small, primary, semibold, double, semibold);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.6;
+}
+
+.weather__value {
+  @include flex();
+  @include font(large, secondary, semibold, small, semibold);
+  position: relative;
+  margin: 0;
+
+  & > i {
+    font-size: font-size(medium);
+    line-height: line-height(large);
+    font-style: normal;
+  }
+}
+
+.weather__value--large {
+  font-size: font-size(huge);
+  line-height: line-height(min);
+  margin-top: $spacing-6x;
+
+  & > i {
+    font-size: font-size(large);
+    line-height: line-height(double);
+  }
+}
+
+// For templates
+.item {
+  @include flex($align: center);
+  width: 100%;
+  padding: $spacing-3x $spacing-4x;
+}
+.item--country {
+  padding: $spacing-1x $spacing-3x;
+}
+.item__flag {
+  max-width: 18px;
+  width: 100%;
+  margin-right: $spacing-3x;
+}
+.item__text {
+  @include font(medium, primary, regular, medium);
+  @include truncate();
+}
+.item__text--country {
+  font-family: font-family(semibold);
+  font-weight: font-weight(semibold);
+}
