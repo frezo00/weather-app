@@ -14,11 +14,12 @@
     ></zivv-select>
 
     <zivv-typeahead
-      [(ngModel)]="search"
+      [(ngModel)]="city"
+      [(search)]="search"
       [items]="cities$ | async | search: search:'fullName'"
       [itemTemplate]="cityTemplate"
       [isLoading]="(isLoading$ | async) || false"
-      (itemSelect)="onTypeaheadSelect($event)"
+      (itemSelect)="onCitySelect($event)"
       placeholder="Please enter your location ..."
       labelKey="fullName"
       class="search__typeahead"

@@ -1,8 +1,8 @@
 <section (click)="toggleOpen(true)" (zivvOutsideClick)="toggleOpen(false)" class="typeahead">
   <input
-    [(ngModel)]="value"
+    [(ngModel)]="search"
     [placeholder]="placeholder"
-    (ngModelChange)="onChanged($event)"
+    (ngModelChange)="searchChange.emit($event)"
     autocomplete="off"
     type="search"
     name="search"
