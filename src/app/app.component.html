@@ -51,16 +51,16 @@
 
 <!-- Template with Country data for custom 'select' component -->
 <ng-template #countryTemplate let-context>
-  <article class="country">
-    <img *ngIf="context?.flag" [src]="context.flag" [alt]="context.code" class="country__flag" />
-    <span class="country__code">{{ context?.code || '--' }}</span>
+  <article class="item item--country">
+    <img *ngIf="context?.flag" [src]="context.flag" [alt]="context.code" class="item__flag" />
+    <span class="item__text item--text--country">{{ context?.code || '--' }}</span>
   </article>
 </ng-template>
 
 <!-- Template with City data for custom 'typeahead' component -->
 <ng-template #cityTemplate let-context>
-  <article class="city">
-    <img *ngIf="context?.flag" [src]="context.flag" [alt]="context.country_code" class="city__flag" />
-    <span class="city__fullname">{{ context?.fullName }}</span>
+  <article class="item">
+    <img *ngIf="context?.flag" [src]="context.flag" [alt]="context.country_code" class="item__flag" />
+    <span class="item__text">{{ context?.fullName }}</span>
   </article>
 </ng-template>

@@ -4,9 +4,9 @@
   [minBufferPx]="maxHeight"
   [maxBufferPx]="maxHeight * 3"
   [style.height]="items?.length | fn: calculateHeight:this"
-  class="items"
+  class="dropdown"
 >
-  <div *cdkVirtualFor="let item of items" (click)="itemSelect.emit(item)" class="item">
+  <div *cdkVirtualFor="let item of items" (click)="itemSelect.emit(item)" class="dropdown__item">
     <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
   </div>
 </cdk-virtual-scroll-viewport>

@@ -15,7 +15,7 @@
   z-index: 1;
 }
 
-.items {
+.dropdown {
   cursor: pointer;
 
   /* Hide scrollbar for IE, Edge and Firefox */
@@ -28,7 +28,7 @@
   }
 }
 
-.item {
+.dropdown__item {
   @include border($position: bottom);
   @include flex($align: center);
   @include transition(background-color);
