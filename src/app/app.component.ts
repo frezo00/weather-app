@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ICity, ICountry, IWeather } from './models';
+import { City, ICountry, IWeather } from './models';
 import { CitiesService } from './services/cities.service';
+import { LoadingService } from './services/loading.service';
 import { WeatherService } from './services/weather.service';
 
 @Component({
@@ -11,22 +12,29 @@ import { WeatherService } from './services/weather.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  weatherPerDay$!: Observable<IWeather[]>;
+  weeklyForecast$!: Observable<IWeather[]>;
   averageTemp$!: Observable<number>;
-  cities$!: Observable<ICity[]>;
+  cities$!: Observable<City[]>;
   countries$!: Observable<ICountry[] | null>;
+  isLoading$!: Observable<boolean>;
+  search = '';
 
-  constructor(private _weatherService: WeatherService, private _citiesService: CitiesService) {}
+  constructor(
+    private _weatherService: WeatherService,
+    private _citiesService: CitiesService,
+    private _loadingService: LoadingService
+  ) {}
 
   ngOnInit(): void {
     this.cities$ = this._citiesService.getCities$();
-    this.cities$.subscribe(
-      cities => console.log('cities', cities),
-      err => console.error('err', err)
-    );
     this.countries$ = this._citiesService.coutries$;
-    this.weatherPerDay$ = this._weatherService.getWeatherPerDay$();
+    this.weeklyForecast$ = this._weatherService.getWeatherPerDay$();
     this.averageTemp$ = this._weatherService.averageTemperature$;
+    this.isLoading$ = this._loadingService.isLoading$;
+  }
+
+  onTypeaheadSelect(selectedCity: City): void {
+    console.log('selectedCity', selectedCity);
   }
 
   mapToDateRange(weatherArray: IWeather[]): [string, string] {

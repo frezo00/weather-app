@@ -11,9 +11,12 @@ export class CitiesService {
 
   constructor(private _httpClient: HttpClient) {}
 
-  getCities$(): Observable<City[]> {
+  getCities$(sort = true): Observable<City[]> {
     return this._httpClient.get<IBaseCity[]>('/assets/data/cities.json').pipe(
-      map(baseCities => baseCities.map(city => new City(city))),
+      map(baseCities => {
+        const cities = baseCities.map(city => new City(city));
+        return sort ? cities.sort((a, b) => a.fullName.localeCompare(b.fullName)) : cities;
+      }),
       tap(cities => this.coutries$.next(this._getUniqueCountries(cities)))
     );
   }

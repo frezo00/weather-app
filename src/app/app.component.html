@@ -3,6 +3,7 @@
     <svg-icon key="sun" size="lg"></svg-icon>
     <svg-icon key="cloud" fontSize="40px"></svg-icon>
   </div>
+
   <div class="search__weather-data">
     <zivv-dropdown
       [options]="countries$ | async"
@@ -10,14 +11,23 @@
       class="search__dropdown"
     ></zivv-dropdown>
 
-    <zivv-typeahead class="search__typeahead"></zivv-typeahead>
+    <zivv-typeahead
+      [(ngModel)]="search"
+      [items]="cities$ | async | search: search:'fullName'"
+      [itemTemplate]="cityTemplate"
+      [isLoading]="(isLoading$ | async) || false"
+      (itemSelect)="onTypeaheadSelect($event)"
+      placeholder="Please enter your location ..."
+      labelKey="fullName"
+      class="search__typeahead"
+    ></zivv-typeahead>
   </div>
 </section>
 
-<main *ngIf="weatherPerDay$ | async as weatherPerDay">
+<main *ngIf="weeklyForecast$ | async as weeklyForecast">
   <section class="result">
     <article class="weather">
-      <h1 class="weather__name">{{ weatherPerDay | fn: mapToDateRange | daterange }}</h1>
+      <h1 class="weather__name">{{ weeklyForecast | fn: mapToDateRange | daterange }}</h1>
       <p class="weather__value weather__value--large">
         <span>{{ averageTemp$ | async | number: '1.0-0' }}</span>
         <i class="weather__unit">&#8451;</i>
@@ -26,7 +36,7 @@
   </section>
 
   <section class="days">
-    <article *ngFor="let weather of weatherPerDay; let i = index" class="weather" id="weather{{ i + 1 }}">
+    <article *ngFor="let weather of weeklyForecast; let i = index" class="weather" id="weather{{ i + 1 }}">
       <h3 class="weather__name">{{ weather.date | date: 'EEEE' }}</h3>
       <p class="weather__value">
         <span>{{ weather.temperature | number: '1.0-0' }}</span>
@@ -40,5 +50,12 @@
   <article class="country">
     <img *ngIf="context?.flag" [src]="context.flag" [alt]="context.code" class="country__flag" />
     <span class="country__code">{{ context?.code || '--' }}</span>
+  </article>
+</ng-template>
+
+<ng-template #cityTemplate let-context>
+  <article class="city">
+    <img *ngIf="context?.flag" [src]="context.flag" [alt]="context.country_code" class="city__flag" />
+    <span class="city__fullname">{{ context?.fullName }}</span>
   </article>
 </ng-template>

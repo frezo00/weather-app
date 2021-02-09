@@ -1,6 +1,10 @@
 @import '../../../scss/helpers';
 
-.typeahead {
+:host {
+  position: relative;
+}
+
+.search {
   @include border-radius();
   @include border();
   @include flex($align: center, $gsb: 1 0 auto);
@@ -14,12 +18,14 @@
   }
 }
 
-.typeahead__icon {
+.search__icon {
+  @include flex(row, center, center);
+  @include transition(opacity);
   margin-left: $spacing-3x;
   opacity: 0.5;
 }
 
-.typeahead__input {
+.search__input {
   @include font(inherit, primary, regular, medium, regular);
   @include placeholder() {
     color: color(placeholder);
@@ -31,5 +37,54 @@
   &:focus,
   &:active {
     outline: none;
+  }
+}
+
+.typeahead {
+  @include border-radius();
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 160px;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  background-color: white;
+  box-shadow: $box-shadow-x 6px 6px $box-shadow-color;
+  overflow-y: auto;
+  z-index: 1;
+  cursor: pointer;
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.typeahead-item {
+  @include transition(background-color);
+
+  &:hover {
+    background-color: color(background);
+  }
+}
+
+.typeahead-item__value {
+  @include truncate();
+  padding: $spacing-3x $spacing-4x;
+}
+
+.svg-icon-spinner {
+  animation: rotate 0.5s linear infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
   }
 }
