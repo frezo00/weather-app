@@ -6,6 +6,7 @@ export class SearchPipe implements PipeTransform {
     if (!items?.length || searchValue?.length < searchLen) {
       return [];
     }
+    // Not the best RegExp but will do the work for now 😉
     return items.filter(item => new RegExp(searchValue, 'gi').test(key ? item[key] : item));
   }
 }

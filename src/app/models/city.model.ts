@@ -24,6 +24,7 @@ export class City implements ICity {
   public lon: number;
   public flag: string;
   public fullName: string;
+  public searchProp: string;
   private readonly _flagBaseUrl = 'https://www.countryflags.io';
 
   constructor(city: IBaseCity) {
@@ -36,6 +37,7 @@ export class City implements ICity {
     this.lat = lat;
     this.lon = lon;
     this.fullName = `${this.city_name}, ${this.country_code}`;
+    this.searchProp = `${this.city_name}${this.country_full}${this.country_code}`;
     this.flag = `${this._flagBaseUrl}/${this.country_code.toLowerCase()}/flat/24.png`;
   }
 }

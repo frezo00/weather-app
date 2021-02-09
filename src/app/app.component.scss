@@ -136,33 +136,25 @@
   }
 }
 
-// Country template
-.country {
+// For templates
+.item {
   @include flex($align: center);
   width: 100%;
-  padding: $spacing-1x $spacing-3x;
-}
-.country__flag {
-  max-width: 18px;
-  width: 100%;
-  margin-right: $spacing-3x;
-}
-.country__code {
-  @include font(medium, primary, semibold, medium, semibold);
-  @include truncate();
-}
-
-// City template
-.city {
-  @include flex($align: center);
   padding: $spacing-3x $spacing-4x;
 }
-.city__flag {
+.item--country {
+  padding: $spacing-1x $spacing-3x;
+}
+.item__flag {
   max-width: 18px;
   width: 100%;
   margin-right: $spacing-3x;
 }
-.city__fullname {
+.item__text {
   @include font(medium, primary, regular, medium);
   @include truncate();
+}
+.item__text--country {
+  font-family: font-family(semibold);
+  font-weight: font-weight(semibold);
 }
