@@ -10,6 +10,7 @@ export interface IBaseCity {
 
 export interface ICity extends IBaseCity {
   flag: string;
+  fullName: string;
 }
 
 export class City implements ICity {
@@ -22,6 +23,7 @@ export class City implements ICity {
   public lat: number;
   public lon: number;
   public flag: string;
+  public fullName: string;
   private readonly _flagBaseUrl = 'https://www.countryflags.io';
 
   constructor(city: IBaseCity) {
@@ -33,6 +35,7 @@ export class City implements ICity {
     this.country_full = country_full;
     this.lat = lat;
     this.lon = lon;
+    this.fullName = `${this.city_name}, ${this.country_code}`;
     this.flag = `${this._flagBaseUrl}/${this.country_code.toLowerCase()}/flat/24.png`;
   }
 }

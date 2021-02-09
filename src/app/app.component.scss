@@ -138,7 +138,7 @@
 
 // Country template
 .country {
-  @include flex(row, $align: center);
+  @include flex($align: center);
   width: 100%;
   padding: $spacing-1x $spacing-3x;
 }
@@ -149,5 +149,20 @@
 }
 .country__code {
   @include font(medium, primary, semibold, medium, semibold);
+  @include truncate();
+}
+
+// City template
+.city {
+  @include flex($align: center);
+  padding: $spacing-3x $spacing-4x;
+}
+.city__flag {
+  max-width: 18px;
+  width: 100%;
+  margin-right: $spacing-3x;
+}
+.city__fullname {
+  @include font(medium, primary, regular, medium);
   @include truncate();
 }
