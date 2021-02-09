@@ -1,4 +1,36 @@
-<label class="typeahead" for="typeahead">
-  <input [placeholder]="placeholderText" class="typeahead__input" type="search" name="typeahead" id="typeahead" />
-  <svg-icon key="search" size="lg" class="typeahead__icon"></svg-icon>
-</label>
+<section (click)="toggleOpen(true)" (zivvOutsideClick)="toggleOpen(false)" class="search">
+  <input
+    [(ngModel)]="value"
+    [placeholder]="placeholder"
+    (ngModelChange)="onChanged($event)"
+    autocomplete="off"
+    type="search"
+    name="search"
+    id="search"
+    class="search__input"
+  />
+
+  <pre>{{ items?.length | json }}</pre>
+  <!-- TODO: Move this into custom Dropdown component and rename current one into Select component -->
+  <!-- Using Angular's CDK Virtual Scroll for large arrays -->
+  <cdk-virtual-scroll-viewport
+    *ngIf="isOpen"
+    [itemSize]="rowHeight"
+    [style.height]="items?.length | fn: calculateHeight:this"
+    minBufferPx="160"
+    maxBufferPx="480"
+    class="typeahead"
+  >
+    <div *cdkVirtualFor="let item of items" (click)="onItemSelect(item)" class="typeahead-item">
+      <ng-container
+        *ngTemplateOutlet="itemTemplate ? itemTemplate : defaultTemplate; context: { $implicit: item }"
+      ></ng-container>
+    </div>
+  </cdk-virtual-scroll-viewport>
+
+  <svg-icon [key]="isLoading ? 'spinner' : 'search'" size="lg" color="hotpink" class="search__icon"></svg-icon>
+</section>
+
+<ng-template #defaultTemplate let-context>
+  <span class="typeahead-item__value">{{ labelKey ? context[labelKey] : context }}</span>
+</ng-template>
