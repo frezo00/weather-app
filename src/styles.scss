@@ -70,6 +70,13 @@ main {
   width: 100%;
 }
 
+.truncate-text {
+  @include truncate();
+}
+
+// -------------
+//   OVERRIDES
+// -------------
 svg-icon {
   min-width: 1em;
 }
