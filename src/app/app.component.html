@@ -5,11 +5,13 @@
   </div>
 
   <div class="search__weather-data">
-    <zivv-dropdown
-      [options]="countries$ | async"
-      [optionTemplate]="countryTemplate"
+    <zivv-select
+      [(ngModel)]="country"
+      [items]="(countries$ | async) || []"
+      [itemTemplate]="countryTemplate"
+      (itemSelect)="onCountrySelect($event)"
       class="search__dropdown"
-    ></zivv-dropdown>
+    ></zivv-select>
 
     <zivv-typeahead
       [(ngModel)]="search"
@@ -46,6 +48,7 @@
   </section>
 </main>
 
+<!-- Template with Country data for custom 'select' component -->
 <ng-template #countryTemplate let-context>
   <article class="country">
     <img *ngIf="context?.flag" [src]="context.flag" [alt]="context.code" class="country__flag" />
@@ -53,6 +56,7 @@
   </article>
 </ng-template>
 
+<!-- Template with City data for custom 'typeahead' component -->
 <ng-template #cityTemplate let-context>
   <article class="city">
     <img *ngIf="context?.flag" [src]="context.flag" [alt]="context.country_code" class="city__flag" />

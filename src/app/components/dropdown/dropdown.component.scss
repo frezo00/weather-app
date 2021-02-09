@@ -1,39 +1,22 @@
 @import '../../../scss/helpers';
 
-.dropdown {
-  @include flex($align: center, $gsb: 1 0 auto);
-
-  position: relative;
-  height: 48px;
-  min-height: 48px;
-
-  &:hover {
-    cursor: pointer;
-
-    .option--selected {
-      border-color: color(focus);
-    }
-  }
-}
-
-.dropdown__icon {
-  position: absolute;
-  right: $spacing-4x;
-  opacity: 0.5;
-}
-
-.options {
+:host {
   @include border-radius();
-  @include flex(column, center, center);
   position: absolute;
-  top: 0;
+  top: 100%;
   left: 0;
   width: 100%;
-  max-height: 200px;
+  max-height: 160px;
+  margin: 0;
+  padding: 0;
   background-color: white;
-  box-shadow: $box-shadow-base;
-  overflow-y: auto;
+  box-shadow: $box-shadow-x 6px 6px $box-shadow-color;
+  overflow: hidden;
   z-index: 1;
+}
+
+.items {
+  cursor: pointer;
 
   /* Hide scrollbar for IE, Edge and Firefox */
   -ms-overflow-style: none;
@@ -45,37 +28,17 @@
   }
 }
 
-.option {
+.item {
   @include border($position: bottom);
   @include flex($align: center);
   @include transition(background-color);
   width: 100%;
 
-  &:not(:only-of-type) {
-    &:hover {
-      background-color: color(background);
-    }
-
-    &:last-of-type {
-      border-bottom: none;
-    }
+  &:hover {
+    background-color: color(background);
   }
-}
 
-.option--selected {
-  @include border-radius();
-  @include border();
-  @include transition(border-color);
-  height: 100%;
-  padding-right: $spacing-4x;
-
-  & > .option__label {
-    flex: 1 0 100%;
-    padding: 0 $spacing-4x;
+  &:last-of-type {
+    border-bottom: none;
   }
-}
-
-.option__label {
-  @include font();
-  @include truncate();
 }

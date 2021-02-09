@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   cities$!: Observable<City[]>;
   countries$!: Observable<ICountry[] | null>;
   isLoading$!: Observable<boolean>;
+  country: ICountry | undefined;
   search = '';
 
   constructor(
@@ -33,8 +34,15 @@ export class AppComponent implements OnInit {
     this.isLoading$ = this._loadingService.isLoading$;
   }
 
+  onCountrySelect(selectedCountry: ICountry): void {
+    console.log('selectedCountry', selectedCountry);
+    console.log('country', this.country);
+  }
+
   onTypeaheadSelect(selectedCity: City): void {
     console.log('selectedCity', selectedCity);
+    const { country_code, flag } = selectedCity;
+    this.country = { code: country_code, flag };
   }
 
   mapToDateRange(weatherArray: IWeather[]): [string, string] {
