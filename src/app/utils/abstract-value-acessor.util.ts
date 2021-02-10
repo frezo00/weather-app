@@ -21,11 +21,13 @@ export abstract class AbstractValueAccessor<T> implements ControlValueAccessor {
 
   onChanged!: (value: T) => void;
   onTouched!: () => void;
+  afterValueUpdate(_value: T): void {}
 
   writeValue(value: T): void {
     if (value !== null) {
       this.value = value;
       this.onChanged(this.value);
+      this.afterValueUpdate(this.value);
     }
   }
 

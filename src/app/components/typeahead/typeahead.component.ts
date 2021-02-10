@@ -19,10 +19,7 @@ export class TypeaheadComponent extends CustomSelectableComponent<City> {
   @Output() itemSelect = new EventEmitter<City>();
   @Output() searchChange = new EventEmitter<string>();
 
-  onItemSelect(selectedItem: City): void {
-    this.search = selectedItem[this.labelKey] as string;
-    super.writeValue(selectedItem);
-    super.toggleOpen(false);
-    this.itemSelect.emit(selectedItem);
+  afterValueUpdate(item: City): void {
+    this.search = item ? (item[this.labelKey] as string) : '';
   }
 }
