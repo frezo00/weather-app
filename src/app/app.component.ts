@@ -1,38 +1,55 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
-import { City, ICountry, IWeather } from './models';
+import { City, ICountry } from './models';
 import { CitiesService } from './services/cities.service';
 import { LoadingService } from './services/loading.service';
-import { WeatherService } from './services/weather.service';
 
 @Component({
   selector: 'zivv-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-  weeklyForecast$!: Observable<IWeather[]>;
-  averageTemp$!: Observable<number>;
+export class AppComponent implements OnInit, OnDestroy {
+  subscription = new Subscription();
   cities$!: Observable<City[]>;
-  countries$!: Observable<ICountry[] | null>;
+  countries$!: Observable<ICountry[]>;
   isLoading$!: Observable<boolean>;
+
   country: ICountry | undefined;
   city: City | undefined;
   search = '';
 
   constructor(
-    private _weatherService: WeatherService,
     private _citiesService: CitiesService,
-    private _loadingService: LoadingService
+    private _loadingService: LoadingService,
+    private _router: Router,
+    private _cdRef: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.cities$ = this._citiesService.getCities$();
     this.countries$ = this._citiesService.coutries$;
-    this.weeklyForecast$ = this._weatherService.getWeatherPerDay$();
-    this.averageTemp$ = this._weatherService.averageTemperature$;
     this.isLoading$ = this._loadingService.isLoading$;
+
+    this.subscription = this._citiesService.currentCity$.pipe(filter(currentCity => !!currentCity)).subscribe(city => {
+      this.updateCityAndCountry(city);
+      this._cdRef.detectChanges();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
+
+  updateCityAndCountry(selectedCity: City | null): void {
+    if (selectedCity instanceof City) {
+      const { country_code, flag } = selectedCity;
+      this.country = { code: country_code, flag };
+      this.city = Object.assign(selectedCity);
+    }
   }
 
   onCountrySelect(selectedCountry: ICountry): void {
@@ -41,15 +58,9 @@ export class AppComponent implements OnInit {
   }
 
   onCitySelect(selectedCity: City): void {
-    const { country_code, flag } = selectedCity;
-    this.country = { code: country_code, flag };
-    this.city = Object.assign(selectedCity);
-    console.log('selectedCity', selectedCity);
-    console.log('this.city', this.city);
-  }
+    const { noSpaceName, country_code } = selectedCity;
+    this.updateCityAndCountry(selectedCity);
 
-  mapToDateRange(weatherArray: IWeather[]): [string, string] {
-    const dates = weatherArray.map(value => value.date);
-    return [dates[0], dates[dates.length - 1]];
+    this._router.navigateByUrl(`${noSpaceName},${country_code}`);
   }
 }

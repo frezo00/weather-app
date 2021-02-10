@@ -11,16 +11,18 @@ import { AppRoutingModule } from './app.routing';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { SelectComponent } from './components/select/select.component';
 import { TypeaheadComponent } from './components/typeahead/typeahead.component';
+import { WeatherComponent } from './components/weather/weather.component';
 import { OutsideClickDirective } from './directives/outside-click.directive';
 import { DaterangePipe } from './pipes/daterange.pipe';
 import { FnPipe } from './pipes/fn.pipe';
 import { SearchPipe } from './pipes/search.pipe';
-import { ApiInterceptor } from './services/interceptor/api.interceptor';
+import { ApiInterceptor } from './services/interceptors/api.interceptor';
 
 @NgModule({
   declarations: [
     // COMPONENTS
     AppComponent,
+    WeatherComponent,
     DropdownComponent,
     TypeaheadComponent,
     SelectComponent,
@@ -41,7 +43,13 @@ import { ApiInterceptor } from './services/interceptor/api.interceptor';
     ScrollingModule,
     SvgIconsModule.forRoot({ ...iconSettings })
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true }],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

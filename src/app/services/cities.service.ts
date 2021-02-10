@@ -7,9 +7,25 @@ import { City, IBaseCity, ICountry } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class CitiesService {
-  coutries$ = new BehaviorSubject<ICountry[] | null>(null);
+  currentCity$ = new BehaviorSubject<City | null>(null);
+  cities$ = new BehaviorSubject<City[]>([]);
+  coutries$ = new BehaviorSubject<ICountry[]>([]);
+
+  get cities(): City[] {
+    return this.cities$.getValue();
+  }
 
   constructor(private _httpClient: HttpClient) {}
+
+  getCityByName$(name: string): Observable<City | null> {
+    const cityName = name.split(',')[0].replace(/ /g, '');
+    const data = this.cities.length ? this.cities$ : this.getCities$();
+    // This is really heavy search to do on FE, usually should be done on BE
+    return data.pipe(
+      map(cities => cities.find(city => city.noSpaceName === cityName) || null),
+      tap(foundCity => this.currentCity$.next(foundCity))
+    );
+  }
 
   getCities$(sort = true): Observable<City[]> {
     return this._httpClient.get<IBaseCity[]>('/assets/data/cities.json').pipe(
@@ -17,7 +33,10 @@ export class CitiesService {
         const cities = baseCities.map(city => new City(city));
         return sort ? cities.sort((a, b) => a.fullName.localeCompare(b.fullName)) : cities;
       }),
-      tap(cities => this.coutries$.next(this._getUniqueCountries(cities)))
+      tap(cities => {
+        this.cities$.next(cities);
+        this.coutries$.next(this._getUniqueCountries(cities));
+      })
     );
   }
 

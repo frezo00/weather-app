@@ -12,12 +12,6 @@ import { CustomSelectableComponent, makeProvider } from '../../utils';
 export class SelectComponent extends CustomSelectableComponent<ICountry> {
   @Input() items!: ICountry[];
   @Input() itemTemplate: TemplateRef<HTMLElement> | undefined;
-  @Input() labelKey = '';
+  @Input() labelKey!: keyof ICountry;
   @Output() itemSelect = new EventEmitter<ICountry>();
-
-  onItemSelect(selectedItem: ICountry): void {
-    super.writeValue(selectedItem);
-    super.toggleOpen(false);
-    this.itemSelect.emit(selectedItem);
-  }
 }
