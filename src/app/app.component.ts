@@ -36,6 +36,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.subscription = this._citiesService.currentCity$.pipe(filter(currentCity => !!currentCity)).subscribe(city => {
       this.city = city;
+      this.search = city?.fullName || '';
       this.updateCountryFromCity(city);
       this._cdRef.detectChanges();
     });
@@ -47,6 +48,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   onCountrySelect(selectedCountry: ICountry): void {
     this.city = undefined;
+    this.search = '';
     this._citiesService.countryChanged(selectedCountry.code);
   }
 
@@ -54,6 +56,7 @@ export class AppComponent implements OnInit, OnDestroy {
     const { noSpaceName, country_code } = selectedCity;
     this.updateCountryFromCity(selectedCity);
 
+    // URL change will trigger resolver and update the data
     this._router.navigateByUrl(`${noSpaceName},${country_code}`);
   }
 

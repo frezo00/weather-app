@@ -16,6 +16,10 @@
   &:focus-within {
     border-color: color(focus);
   }
+
+  &:focus-within .typeahead__icon {
+    opacity: 1;
+  }
 }
 
 .typeahead__icon {
