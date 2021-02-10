@@ -18,6 +18,7 @@
       [(search)]="search"
       [items]="cities$ | async | search: search:'fullName'"
       [itemTemplate]="cityTemplate"
+      [isLoading]="(isLoading$ | async) || false"
       (itemSelect)="onCitySelect($event)"
       placeholder="Please enter your location ..."
       labelKey="fullName"

@@ -5,6 +5,7 @@ import { filter } from 'rxjs/operators';
 
 import { City, ICountry } from './models';
 import { CitiesService } from './services/cities.service';
+import { LoadingService } from './services/loading.service';
 
 @Component({
   selector: 'zivv-root',
@@ -15,15 +16,23 @@ export class AppComponent implements OnInit, OnDestroy {
   subscription = new Subscription();
   cities$!: Observable<City[]>;
   countries$!: Observable<ICountry[]>;
+  isLoading$!: Observable<boolean>;
+
   country: ICountry | undefined;
   city: City | undefined;
   search = '';
 
-  constructor(private _citiesService: CitiesService, private _router: Router, private _cdRef: ChangeDetectorRef) {}
+  constructor(
+    private _citiesService: CitiesService,
+    private _loadingService: LoadingService,
+    private _router: Router,
+    private _cdRef: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.cities$ = this._citiesService.getCities$();
     this.countries$ = this._citiesService.coutries$;
+    this.isLoading$ = this._loadingService.isLoading$;
 
     this.subscription = this._citiesService.currentCity$.pipe(filter(currentCity => !!currentCity)).subscribe(city => {
       this.updateCityAndCountry(city);
