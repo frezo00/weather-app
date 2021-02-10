@@ -3,6 +3,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SvgIconsModule } from '@ngneat/svg-icon';
 
 import iconSettings from '../assets/svg';
@@ -37,6 +38,7 @@ import { ApiInterceptor } from './services/interceptors/api.interceptor';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,

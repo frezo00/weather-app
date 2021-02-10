@@ -5,6 +5,7 @@
   [maxBufferPx]="maxHeight * 3"
   [style.height]="items?.length | fn: calculateHeight:this"
   class="dropdown"
+  @expandCollapse
 >
   <div *cdkVirtualFor="let item of items" (click)="itemSelect.emit(item)" class="dropdown__item">
     <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>

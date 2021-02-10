@@ -1,9 +1,12 @@
 import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 
+import { expandCollapse } from '../../animations';
+
 @Component({
   selector: 'zivv-dropdown',
   templateUrl: './dropdown.component.html',
-  styleUrls: ['./dropdown.component.scss']
+  styleUrls: ['./dropdown.component.scss'],
+  animations: [expandCollapse]
 })
 export class DropdownComponent {
   // NOTE: Using 'any' isn't the best way, but as this component can accept different types of objects, should be fine

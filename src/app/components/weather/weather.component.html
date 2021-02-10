@@ -1,4 +1,4 @@
-<main *ngIf="weeklyForecast$ | async as weeklyForecast">
+<main *ngIf="weeklyForecast$ | async as weeklyForecast" @expandCollapse>
   <section class="result">
     <article class="weather">
       <h1 class="weather__name">{{ weeklyForecast | fn: mapToDateRange | daterange }}</h1>

@@ -3,13 +3,15 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { expandCollapse } from '../../animations';
 import { IWeather } from '../../models';
 import { WeatherService } from '../../services/weather.service';
 
 @Component({
   selector: 'zivv-weather',
   templateUrl: './weather.component.html',
-  styleUrls: ['./weather.component.scss']
+  styleUrls: ['./weather.component.scss'],
+  animations: [expandCollapse]
 })
 export class WeatherComponent implements OnInit {
   weeklyForecast$!: Observable<IWeather[]>;
