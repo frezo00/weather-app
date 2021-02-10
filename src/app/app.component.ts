@@ -30,12 +30,13 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.cities$ = this._citiesService.getCities$();
+    this.cities$ = this._citiesService.cities$;
     this.countries$ = this._citiesService.coutries$;
     this.isLoading$ = this._loadingService.isLoading$;
 
     this.subscription = this._citiesService.currentCity$.pipe(filter(currentCity => !!currentCity)).subscribe(city => {
-      this.updateCityAndCountry(city);
+      this.city = city;
+      this.updateCountryFromCity(city);
       this._cdRef.detectChanges();
     });
   }
@@ -44,23 +45,22 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscription?.unsubscribe();
   }
 
-  updateCityAndCountry(selectedCity: City | null): void {
-    if (selectedCity instanceof City) {
-      const { country_code, flag } = selectedCity;
-      this.country = { code: country_code, flag };
-      this.city = Object.assign(selectedCity);
-    }
-  }
-
   onCountrySelect(selectedCountry: ICountry): void {
-    console.log('selectedCountry', selectedCountry);
-    console.log('country', this.country);
+    this.city = undefined;
+    this._citiesService.countryChanged(selectedCountry.code);
   }
 
   onCitySelect(selectedCity: City): void {
     const { noSpaceName, country_code } = selectedCity;
-    this.updateCityAndCountry(selectedCity);
+    this.updateCountryFromCity(selectedCity);
 
     this._router.navigateByUrl(`${noSpaceName},${country_code}`);
+  }
+
+  updateCountryFromCity(city: City | undefined): void {
+    if (city) {
+      const { country_code, flag } = city;
+      this.country = { code: country_code, flag };
+    }
   }
 }
