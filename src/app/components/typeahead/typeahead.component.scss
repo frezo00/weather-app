@@ -19,7 +19,6 @@
 }
 
 .typeahead__icon {
-  @include flex(row, center, center);
   @include transition(opacity);
   margin-left: $spacing-3x;
   opacity: 0.5;
@@ -37,15 +36,5 @@
   &:focus,
   &:active {
     outline: none;
-  }
-}
-
-.svg-icon-spinner {
-  animation: rotate 0.5s linear infinite;
-}
-
-@keyframes rotate {
-  100% {
-    transform: rotate(360deg);
   }
 }

@@ -76,10 +76,21 @@ main {
 // -------------
 //   OVERRIDES
 // -------------
-svg-icon {
-  min-width: 1em;
-}
-
 .cdk-virtual-scroll-content-wrapper {
   width: 100%;
+}
+
+svg-icon {
+  min-width: 1em;
+
+  &.svg-icon-spinner {
+    @include flex(row, center, center);
+    animation: rotate 0.5s linear infinite;
+  }
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
 }

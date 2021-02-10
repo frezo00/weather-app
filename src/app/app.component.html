@@ -33,7 +33,7 @@
 <ng-template #countryTemplate let-context>
   <article class="item item--country">
     <img *ngIf="context?.flag" [src]="context.flag" [alt]="context.code" class="item__flag" />
-    <span class="item__text item--text--country">{{ context?.code || '--' }}</span>
+    <span class="item__text item__text--country">{{ context?.code || '--' }}</span>
   </article>
 </ng-template>
 

@@ -2,10 +2,11 @@
 
 :host {
   overflow-y: auto;
+  margin-top: $spacing-8x;
 }
 
 .result {
-  margin: $spacing-8x 0;
+  margin-bottom: $spacing-8x;
 }
 
 .days {
