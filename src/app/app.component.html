@@ -10,6 +10,7 @@
       [items]="(countries$ | async) || []"
       [itemTemplate]="countryTemplate"
       (itemSelect)="onCountrySelect($event)"
+      labelKey="code"
       class="search__dropdown"
     ></zivv-select>
 

@@ -5,7 +5,7 @@
 
   <zivv-dropdown
     *ngIf="isOpen"
-    [items]="items"
+    [items]="items | search: keyboardSearch:labelKey"
     [itemTemplate]="itemTemplate || defaultTemplate"
     (itemSelect)="onItemSelect($event)"
   ></zivv-dropdown>
