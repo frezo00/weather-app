@@ -1,0 +1,21 @@
+<main *ngIf="weeklyForecast$ | async as weeklyForecast">
+  <section class="result">
+    <article class="weather">
+      <h1 class="weather__name">{{ weeklyForecast | fn: mapToDateRange | daterange }}</h1>
+      <p class="weather__value weather__value--large">
+        <span>{{ averageTemp$ | async | number: '1.0-0' }}</span>
+        <i class="weather__unit">&#8451;</i>
+      </p>
+    </article>
+  </section>
+
+  <section class="days">
+    <article *ngFor="let weather of weeklyForecast; let i = index" class="weather" id="weather{{ i + 1 }}">
+      <h3 class="weather__name">{{ weather.date | date: 'EEEE' }}</h3>
+      <p class="weather__value">
+        <span>{{ weather.temperature | number: '1.0-0' }}</span>
+        <i class="weather__unit">&#8451;</i>
+      </p>
+    </article>
+  </section>
+</main>

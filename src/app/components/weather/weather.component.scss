@@ -1,53 +1,7 @@
 @import '../../../scss/helpers';
 
 :host {
-  @include flex(column, center, center, 1 0 auto);
-  height: 100%;
-  max-width: 680px;
-  margin: 0 auto;
-  padding: $spacing-5x;
-}
-
-.search {
-  @include flex(row, center, center);
-  @include border-radius(large);
-  @include media(sm, max) {
-    flex-direction: column;
-  }
-  width: 100%;
-  padding: $spacing-5x;
-  background: linear-gradient(0deg, rgba(color(secondary), 0.9), rgba(color(secondary), 0.9)), color(background);
-  box-shadow: $box-shadow-base;
-}
-
-.search__weather-image {
-  @include media(sm, max) {
-    margin-bottom: $spacing-2x;
-    margin-right: $spacing-2x;
-  }
-  position: relative;
-  margin-right: $spacing-4x;
-  margin-left: $spacing-2x;
-
-  & > svg-icon[key='sun'] {
-    position: absolute;
-    left: -3px;
-    top: 3px;
-  }
-}
-
-.search__weather-data {
-  @include flex();
-  width: 100%;
-}
-
-.search__dropdown {
-  width: 100px;
-  margin-right: $spacing-2x;
-}
-
-.search__typeahead {
-  flex: 1 0 0;
+  overflow-y: auto;
 }
 
 .result {
@@ -134,27 +88,4 @@
     font-size: font-size(large);
     line-height: line-height(double);
   }
-}
-
-// For templates
-.item {
-  @include flex($align: center);
-  width: 100%;
-  padding: $spacing-3x $spacing-4x;
-}
-.item--country {
-  padding: $spacing-1x $spacing-3x;
-}
-.item__flag {
-  max-width: 18px;
-  width: 100%;
-  margin-right: $spacing-3x;
-}
-.item__text {
-  @include font(medium, primary, regular, medium);
-  @include truncate();
-}
-.item__text--country {
-  font-family: font-family(semibold);
-  font-weight: font-weight(semibold);
 }

@@ -1,1 +1,45 @@
+<section class="search">
+  <div class="search__weather-image">
+    <svg-icon key="sun" size="lg"></svg-icon>
+    <svg-icon key="cloud" fontSize="40px"></svg-icon>
+  </div>
+
+  <div class="search__weather-data">
+    <zivv-select
+      [(ngModel)]="country"
+      [items]="(countries$ | async) || []"
+      [itemTemplate]="countryTemplate"
+      (itemSelect)="onCountrySelect($event)"
+      class="search__dropdown"
+    ></zivv-select>
+
+    <zivv-typeahead
+      [(ngModel)]="city"
+      [(search)]="search"
+      [items]="cities$ | async | search: search:'fullName'"
+      [itemTemplate]="cityTemplate"
+      (itemSelect)="onCitySelect($event)"
+      placeholder="Please enter your location ..."
+      labelKey="fullName"
+      class="search__typeahead"
+    ></zivv-typeahead>
+  </div>
+</section>
+
 <router-outlet></router-outlet>
+
+<!-- Template with Country data for custom 'select' component -->
+<ng-template #countryTemplate let-context>
+  <article class="item item--country">
+    <img *ngIf="context?.flag" [src]="context.flag" [alt]="context.code" class="item__flag" />
+    <span class="item__text item--text--country">{{ context?.code || '--' }}</span>
+  </article>
+</ng-template>
+
+<!-- Template with City data for custom 'typeahead' component -->
+<ng-template #cityTemplate let-context>
+  <article class="item">
+    <img *ngIf="context?.flag" [src]="context.flag" [alt]="context.country_code" class="item__flag" />
+    <span class="item__text">{{ context?.fullName }}</span>
+  </article>
+</ng-template>

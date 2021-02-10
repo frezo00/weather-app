@@ -11,8 +11,8 @@ import { AppRoutingModule } from './app.routing';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { SelectComponent } from './components/select/select.component';
 import { TypeaheadComponent } from './components/typeahead/typeahead.component';
+import { WeatherComponent } from './components/weather/weather.component';
 import { OutsideClickDirective } from './directives/outside-click.directive';
-import { WeatherPageComponent } from './pages/weather/weather.component';
 import { DaterangePipe } from './pipes/daterange.pipe';
 import { FnPipe } from './pipes/fn.pipe';
 import { SearchPipe } from './pipes/search.pipe';
@@ -22,7 +22,7 @@ import { ApiInterceptor } from './services/interceptors/api.interceptor';
   declarations: [
     // COMPONENTS
     AppComponent,
-    WeatherPageComponent,
+    WeatherComponent,
     DropdownComponent,
     TypeaheadComponent,
     SelectComponent,
