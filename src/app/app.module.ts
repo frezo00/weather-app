@@ -16,6 +16,7 @@ import { WeatherComponent } from './components/weather/weather.component';
 import { OutsideClickDirective } from './directives/outside-click.directive';
 import { DaterangePipe } from './pipes/daterange.pipe';
 import { FnPipe } from './pipes/fn.pipe';
+import { GradientPipe } from './pipes/gradient.pipe';
 import { SearchPipe } from './pipes/search.pipe';
 import { ApiInterceptor } from './services/interceptors/api.interceptor';
 
@@ -23,10 +24,10 @@ import { ApiInterceptor } from './services/interceptors/api.interceptor';
   declarations: [
     // COMPONENTS
     AppComponent,
-    WeatherComponent,
     DropdownComponent,
-    TypeaheadComponent,
     SelectComponent,
+    TypeaheadComponent,
+    WeatherComponent,
 
     // DIRECTIVES
     OutsideClickDirective,
@@ -34,6 +35,7 @@ import { ApiInterceptor } from './services/interceptors/api.interceptor';
     // PIPES
     DaterangePipe,
     FnPipe,
+    GradientPipe,
     SearchPipe
   ],
   imports: [

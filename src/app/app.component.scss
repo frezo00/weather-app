@@ -1,6 +1,6 @@
 @import '../scss/helpers';
 
-:host {
+.container {
   @include flex(column, center, stretch, 1 0 auto);
   height: 100%;
   max-width: 680px;

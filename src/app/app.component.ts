@@ -6,6 +6,7 @@ import { filter } from 'rxjs/operators';
 import { City, ICountry } from './models';
 import { CitiesService } from './services/cities.service';
 import { LoadingService } from './services/loading.service';
+import { WeatherService } from './services/weather.service';
 
 @Component({
   selector: 'zivv-root',
@@ -14,6 +15,7 @@ import { LoadingService } from './services/loading.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   subscription = new Subscription();
+  averageTemp$!: Observable<number>;
   cities$!: Observable<City[]>;
   countries$!: Observable<ICountry[]>;
   isLoading$!: Observable<boolean>;
@@ -24,12 +26,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private _citiesService: CitiesService,
+    private _weatherService: WeatherService,
     private _loadingService: LoadingService,
     private _router: Router,
     private _cdRef: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
+    this.averageTemp$ = this._weatherService.averageTemperature$;
     this.cities$ = this._citiesService.cities$;
     this.countries$ = this._citiesService.coutries$;
     this.isLoading$ = this._loadingService.isLoading$;
@@ -55,6 +59,7 @@ export class AppComponent implements OnInit, OnDestroy {
   onCitySelect(selectedCity: City): void {
     const { noSpaceName, country_code } = selectedCity;
     this.updateCountryFromCity(selectedCity);
+    this._citiesService.countryChanged(country_code);
 
     // URL change will trigger resolver and update the data
     this._router.navigateByUrl(`${noSpaceName},${country_code}`);

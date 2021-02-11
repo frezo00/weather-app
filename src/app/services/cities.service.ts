@@ -22,7 +22,7 @@ export class CitiesService {
   getCityByName$(name: string): Observable<City | undefined> {
     const cityName = name.split(',')[0].replace(/ /g, '');
     const data = this.cities.length ? this.cities$ : this.getCities$();
-    // This is really heavy search to do on FE, usually should be done on BE
+
     return data.pipe(
       map(cities => cities.find(city => city.noSpaceName === cityName)),
       tap(foundCity => this.currentCity$.next(foundCity))
@@ -30,6 +30,7 @@ export class CitiesService {
   }
 
   getCities$(sortBy: keyof CityStringKeys = 'fullName'): Observable<City[]> {
+    // NOTE: This is not a good practice to load large local JSON file, but should be fine for this task
     return this._httpClient.get<IBaseCity[]>('/assets/data/cities.json').pipe(
       map(baseCities => {
         const cities = baseCities.map(city => new City(city));
