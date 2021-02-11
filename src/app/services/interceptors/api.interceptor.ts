@@ -2,7 +2,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } fr
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
-import { catchError, delay, finalize, retry, tap } from 'rxjs/operators';
+import { catchError, finalize, retry, tap } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 import { LoadingService } from '../loading.service';
@@ -30,7 +30,6 @@ export class ApiInterceptor implements HttpInterceptor {
           throw new Error('No content for provided data.');
         }
       }),
-      // delay(5000), // TODO: Remove this when done
       retry(1),
       catchError(error => {
         // Not perfect error handling, but will do for now
