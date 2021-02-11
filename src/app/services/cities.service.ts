@@ -5,9 +5,11 @@ import { map, tap } from 'rxjs/operators';
 
 import { City, IBaseCity, ICountry } from '../models';
 
+type CityStringKeys = Omit<City, 'city_id' | 'lat' | 'lon'>;
+
 @Injectable({ providedIn: 'root' })
 export class CitiesService {
-  currentCity$ = new BehaviorSubject<City | null>(null);
+  currentCity$ = new BehaviorSubject<City | undefined>(undefined);
   cities$ = new BehaviorSubject<City[]>([]);
   coutries$ = new BehaviorSubject<ICountry[]>([]);
 
@@ -17,27 +19,34 @@ export class CitiesService {
 
   constructor(private _httpClient: HttpClient) {}
 
-  getCityByName$(name: string): Observable<City | null> {
+  getCityByName$(name: string): Observable<City | undefined> {
     const cityName = name.split(',')[0].replace(/ /g, '');
     const data = this.cities.length ? this.cities$ : this.getCities$();
-    // This is really heavy search to do on FE, usually should be done on BE
+
     return data.pipe(
-      map(cities => cities.find(city => city.noSpaceName === cityName) || null),
+      map(cities => cities.find(city => city.noSpaceName === cityName)),
       tap(foundCity => this.currentCity$.next(foundCity))
     );
   }
 
-  getCities$(sort = true): Observable<City[]> {
+  getCities$(sortBy: keyof CityStringKeys = 'fullName'): Observable<City[]> {
+    // NOTE: This is not a good practice to load large local JSON file, but should be fine for this task
     return this._httpClient.get<IBaseCity[]>('/assets/data/cities.json').pipe(
       map(baseCities => {
         const cities = baseCities.map(city => new City(city));
-        return sort ? cities.sort((a, b) => a.fullName.localeCompare(b.fullName)) : cities;
+        return cities.sort((a, b) => a[sortBy].localeCompare(b.fullName));
       }),
       tap(cities => {
         this.cities$.next(cities);
         this.coutries$.next(this._getUniqueCountries(cities));
       })
     );
+  }
+
+  countryChanged(countryCode: string): void {
+    const countryCities = this.cities.filter(city => city.country_code === countryCode);
+    const nonCountryCities = this.cities.filter(city => !countryCities.includes(city));
+    this.cities$.next([...countryCities, ...nonCountryCities]);
   }
 
   private _getUniqueCountries(cities: City[], sort = true): ICountry[] {

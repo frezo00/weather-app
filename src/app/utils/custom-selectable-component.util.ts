@@ -9,6 +9,7 @@ export abstract class CustomSelectableComponent<T> extends AbstractValueAccessor
   abstract itemSelect = new EventEmitter<T>();
 
   isOpen = false;
+  onToggleClose(): void {}
 
   onItemSelect(selectedItem: T): void {
     super.writeValue(selectedItem);
@@ -18,5 +19,8 @@ export abstract class CustomSelectableComponent<T> extends AbstractValueAccessor
 
   toggleOpen(value: boolean): void {
     this.isOpen = value;
+    if (!this.isOpen) {
+      this.onToggleClose();
+    }
   }
 }

@@ -6,6 +6,11 @@ import { WeatherResolver } from './services/resolvers/weather.resolver';
 
 const routes: Routes = [
   {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'weather'
+  },
+  {
     path: ':city',
     component: WeatherComponent,
     resolve: {
@@ -14,7 +19,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: ''
+    redirectTo: 'weather'
   }
 ];
 

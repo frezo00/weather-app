@@ -1,6 +1,6 @@
 @import '../scss/helpers';
 
-:host {
+.container {
   @include flex(column, center, stretch, 1 0 auto);
   height: 100%;
   max-width: 680px;
@@ -63,7 +63,7 @@
 .item__flag {
   max-width: 18px;
   width: 100%;
-  margin-right: $spacing-3x;
+  margin-right: $spacing-2x;
 }
 .item__text {
   @include font(medium, primary, regular, medium);

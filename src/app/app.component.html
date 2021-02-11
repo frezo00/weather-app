@@ -1,33 +1,38 @@
-<section class="search">
-  <div class="search__weather-image">
-    <svg-icon key="sun" size="lg"></svg-icon>
-    <svg-icon key="cloud" fontSize="40px"></svg-icon>
+<main [style.backgroundImage]="(averageTemp$ | async) || 0 | gradient">
+  <div class="container">
+    <section class="search">
+      <div class="search__weather-image">
+        <svg-icon key="sun" size="lg"></svg-icon>
+        <svg-icon key="cloud" fontSize="40px"></svg-icon>
+      </div>
+
+      <div class="search__weather-data">
+        <zivv-select
+          [(ngModel)]="country"
+          [items]="(countries$ | async) || []"
+          [itemTemplate]="countryTemplate"
+          (itemSelect)="onCountrySelect($event)"
+          labelKey="code"
+          class="search__dropdown"
+        ></zivv-select>
+
+        <zivv-typeahead
+          [(ngModel)]="city"
+          [(search)]="search"
+          [items]="cities$ | async | search: search:'fullName'"
+          [itemTemplate]="cityTemplate"
+          [isLoading]="(isLoading$ | async) || false"
+          (itemSelect)="onCitySelect($event)"
+          placeholder="Please enter your location ..."
+          labelKey="fullName"
+          class="search__typeahead"
+        ></zivv-typeahead>
+      </div>
+    </section>
+
+    <router-outlet></router-outlet>
   </div>
-
-  <div class="search__weather-data">
-    <zivv-select
-      [(ngModel)]="country"
-      [items]="(countries$ | async) || []"
-      [itemTemplate]="countryTemplate"
-      (itemSelect)="onCountrySelect($event)"
-      class="search__dropdown"
-    ></zivv-select>
-
-    <zivv-typeahead
-      [(ngModel)]="city"
-      [(search)]="search"
-      [items]="cities$ | async | search: search:'fullName'"
-      [itemTemplate]="cityTemplate"
-      [isLoading]="(isLoading$ | async) || false"
-      (itemSelect)="onCitySelect($event)"
-      placeholder="Please enter your location ..."
-      labelKey="fullName"
-      class="search__typeahead"
-    ></zivv-typeahead>
-  </div>
-</section>
-
-<router-outlet></router-outlet>
+</main>
 
 <!-- Template with Country data for custom 'select' component -->
 <ng-template #countryTemplate let-context>
