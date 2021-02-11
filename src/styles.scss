@@ -1,1 +1,98 @@
 /* You can add global styles to this file, and also import other style files */
+
+// ==========================================================================
+//   NORMALIZE - Normalize.css makes browsers render all elements
+//              more consistently and in line with modern standards.
+//              It precisely targets only the styles that need normalizing.
+// ==========================================================================
+@import '../node_modules/normalize-scss/sass/normalize';
+
+// --------------------------------------------------------
+//   HELPERS - import all variables, functions and mixins
+// --------------------------------------------------------
+@import './scss/helpers';
+
+// --------------------------------------------------------------------------------------------------------
+//   FONT-FACE - Add all font-faces once, to use them everywhere (check $font-family variables for names)
+// --------------------------------------------------------------------------------------------------------
+@font-face {
+  font-family: 'poppins-regular';
+  src: url('../src/assets/fonts/Poppins-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'poppins-semi-bold';
+  src: url('../src/assets/fonts/Poppins-SemiBold.ttf') format('truetype');
+}
+
+// -------------------
+//   GLOBAL STYLINGS
+// -------------------
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+body {
+  @include font(medium, primary, regular, normal, regular);
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+
+  // for Google Fonts
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+input[type='search']::-webkit-search-decoration,
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-results-button,
+input[type='search']::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+}
+
+main {
+  @include transition(background-image);
+  height: 100%;
+  background-image: linear-gradient(0deg, rgba(color(secondary), 0.8), rgba(color(secondary), 0.8)),
+    linear-gradient(
+      119.25deg,
+      gradient-color(1) -11.47%,
+      gradient-color(2) 3.95%,
+      gradient-color(3) 19.37%,
+      gradient-color(4) 34.78%,
+      gradient-color(5) 50.19%,
+      gradient-color(6) 65.61%,
+      gradient-color(7) 81.02%,
+      gradient-color(8) 96.44%,
+      gradient-color(9) 111.85%
+    );
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.truncate-text {
+  @include truncate();
+}
+
+// -------------
+//   OVERRIDES
+// -------------
+.cdk-virtual-scroll-content-wrapper {
+  width: 100%;
+}
+
+svg-icon {
+  min-width: 1em;
+
+  &.svg-icon-spinner {
+    @include flex(row, center, center);
+    animation: rotate 0.5s linear infinite;
+  }
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,18 @@
+<section (click)="toggleOpen(true)" (zivvOutsideClick)="toggleOpen(false)" class="select">
+  <div class="select__value">
+    <ng-container *ngTemplateOutlet="itemTemplate || defaultTemplate; context: { $implicit: value }"></ng-container>
+  </div>
+
+  <zivv-dropdown
+    *ngIf="isOpen"
+    [items]="items | search: keyboardSearch:labelKey"
+    [itemTemplate]="itemTemplate || defaultTemplate"
+    (itemSelect)="onItemSelect($event)"
+  ></zivv-dropdown>
+
+  <svg-icon key="chevron" size="xs" class="select__icon"></svg-icon>
+</section>
+
+<ng-template #defaultTemplate let-context>
+  <span class="truncate-text">{{ labelKey ? context[labelKey] : context }}</span>
+</ng-template>

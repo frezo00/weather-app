@@ -1,0 +1,26 @@
+<label (click)="toggleOpen(true)" (zivvOutsideClick)="toggleOpen(false)" class="typeahead">
+  <input
+    [(ngModel)]="search"
+    [placeholder]="placeholder"
+    (ngModelChange)="searchChange.emit($event)"
+    (focus)="toggleOpen(true)"
+    autocomplete="off"
+    type="search"
+    name="search"
+    id="search"
+    class="typeahead__input"
+  />
+  <svg-icon [key]="isLoading ? 'spinner' : 'search'" size="lg" class="typeahead__icon"></svg-icon>
+</label>
+
+<zivv-dropdown
+  *ngIf="isOpen"
+  [items]="items"
+  [itemTemplate]="itemTemplate || defaultTemplate"
+  [rowHeight]="45"
+  (itemSelect)="onItemSelect($event)"
+></zivv-dropdown>
+
+<ng-template #defaultTemplate let-context>
+  <span class="truncate-text">{{ labelKey ? context[labelKey] : context }}</span>
+</ng-template>

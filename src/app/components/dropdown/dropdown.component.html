@@ -1,0 +1,13 @@
+<!-- Using Angular's CDK Virtual Scroll for large arrays -->
+<cdk-virtual-scroll-viewport
+  [itemSize]="rowHeight"
+  [minBufferPx]="maxHeight"
+  [maxBufferPx]="maxHeight * 3"
+  [style.height]="items?.length | fn: calculateHeight:this"
+  class="dropdown"
+  @expandCollapse
+>
+  <div *cdkVirtualFor="let item of items" (click)="itemSelect.emit(item)" class="dropdown__item">
+    <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
+  </div>
+</cdk-virtual-scroll-viewport>

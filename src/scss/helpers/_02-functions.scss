@@ -1,0 +1,81 @@
+// ========================================
+//   FUNCTIONS - Various helper functions
+// ========================================
+
+// -----------------------------------------------------------------------------
+//   LIST-CONTAINS - Checks if an '$item' is contained inside the '$list' list
+// -----------------------------------------------------------------------------
+@function list-contains($list, $item) {
+  @if index($list, $item) {
+    @return $item;
+  }
+  @warn "Unknown `#{$item}` in the `#{$list}` list.";
+  @return null;
+}
+
+// ------------------------------------------------------------------------
+//   MAP-CONTAINS - Checks if a '$key' is contained inside the '$map' map
+// ------------------------------------------------------------------------
+@function map-contains($map, $key) {
+  @if map-has-key($map, $key) {
+    @return map-get($map, $key);
+  }
+  @warn "Unknown `#{$key}` in the `#{$map}` map.";
+  @return null;
+}
+
+// -------------------------------------------------------------------------------------------
+//   BORDER-RADIUS - Returns 'px' value for a border-radius name from '$border-radiuses' map
+// -------------------------------------------------------------------------------------------
+@function border-radius($radius) {
+  @return map-contains($border-radiuses, $radius);
+}
+
+// --------------------------------------------------------------------
+//   COLOR - Returns 'hexa' value for a color name from '$colors' map
+// --------------------------------------------------------------------
+@function color($color) {
+  @return map-contains($colors, $color);
+}
+
+// --------------------------------------------------------------------------------------
+//   GRADIENT COLOR - Returns 'hexa' value for a number from '$gradient-colors' map
+// --------------------------------------------------------------------------------------
+@function gradient-color($number) {
+  @return map-contains($gradient-colors, $number);
+}
+
+// ------------------------------------------------------------------------------
+//   FONT-FAMILY - Returns a value for a $family name from '$font-families' map
+// ------------------------------------------------------------------------------
+@function font-family($family) {
+  @return map-contains($font-families, $family);
+}
+
+// ---------------------------------------------------------------------------
+//   FONT-SIZE - Returns 'rem' value for a $size name from '$font-sizes' map
+// ---------------------------------------------------------------------------
+@function font-size($size) {
+  @return map-contains($font-sizes, $size);
+}
+
+// ------------------------------------------------------------------------------------
+//   FONT-WEIGHT - Returns 'number' value for a $weight name from '$font-weights' map
+// ------------------------------------------------------------------------------------
+@function font-weight($weight) {
+  @return map-contains($font-weights, $weight);
+}
+
+// --------------------------------------------------------------------------------------------
+//   LINE-HEIGHT - Returns 'decimal number' value for a $height name from '$line-heights' map
+// --------------------------------------------------------------------------------------------
+@function line-height($height) {
+  @return map-contains($line-heights, $height);
+}
+
+// -------------------------------------------------------------------------------------------
+//   SPACING - Returns 'px' value (or 'auto' or '0') for a spacing name from '$spacings' map
+// -------------------------------------------------------------------------------------------
+@function spacing($spacing) {
+  @return map-contains($spacings, $spacing);
+}

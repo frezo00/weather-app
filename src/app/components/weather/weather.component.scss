@@ -1,0 +1,92 @@
+@import '../../../scss/helpers';
+
+:host {
+  overflow-y: auto;
+  margin-top: $spacing-8x;
+}
+
+.result {
+  margin-bottom: $spacing-8x;
+}
+
+.days {
+  @include flex($justify: space-between);
+  @include media(sm, max) {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+  }
+  @include media(xs, max) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  width: 100%;
+}
+
+.weather {
+  @include flex(column, $align: center);
+  // NOTE: Don't go for the 'mobile-first' approach if you don't have the mobile design
+  @include media(sm, max) {
+    $days-in-week: 7;
+
+    @for $i from 1 through $days-in-week {
+      $end: $i * 3 + 1;
+      $start: $end - 3;
+
+      @if $i > 4 {
+        $end: $i * 4 - 15;
+        $start: $end - 4;
+      }
+
+      &#weather#{$i} {
+        grid-column: #{$start} / #{$end};
+      }
+    }
+  }
+  @include media(xs, max) {
+    &:nth-of-type(odd) {
+      grid-column: 1 / 2 !important;
+    }
+
+    &:nth-of-type(even) {
+      grid-column: 2 / 3 !important;
+    }
+
+    &:not(:only-child):last-of-type {
+      grid-column: 1 / 3 !important;
+      padding-bottom: 40px;
+    }
+  }
+
+  margin: $spacing-4x 0;
+}
+
+.weather__name {
+  @include font(small, primary, semibold, double, semibold);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.6;
+}
+
+.weather__value {
+  @include flex();
+  @include font(large, secondary, semibold, small, semibold);
+  position: relative;
+  margin: 0;
+
+  & > i {
+    font-size: font-size(medium);
+    line-height: line-height(large);
+    font-style: normal;
+  }
+}
+
+.weather__value--large {
+  font-size: font-size(huge);
+  line-height: line-height(min);
+  margin-top: $spacing-6x;
+
+  & > i {
+    font-size: font-size(large);
+    line-height: line-height(double);
+  }
+}
